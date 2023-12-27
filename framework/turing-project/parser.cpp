@@ -165,7 +165,8 @@ std::vector<TMachineDef::TapeSym> TMParse::parse_tape_symbols(
   std::vector<TMachineDef::TapeSym> tape_symbols;
   for (size_t i = 0; i < tape_num; ++i) {
     auto tape_sym = *cur_ptr;
-    parsing_assert(tape_alphabet.find(tape_sym) != tape_alphabet.end() &&
+    parsing_assert((tape_alphabet.find(tape_sym) != tape_alphabet.end() ||
+                   tape_sym == '*') &&
                    "invalid tape symbol");
     tape_symbols.push_back(tape_sym);
     ++cur_ptr;

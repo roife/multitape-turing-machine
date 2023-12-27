@@ -1,11 +1,10 @@
 #pragma once
 
 #include "common.h"
-#include <__config>
 #include <cassert>
+#include <cstring>
 #include <deque>
 #include <string>
-#include <sys/_types/_size_t.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -123,9 +122,11 @@ struct TMachine {
       : def(def), tapes(def.tape_num, Tape(0, def.blank_sym)),
         pass_final_state(false), state(def.init_state) {
     auto input_len = strlen(input);
-    tapes[0].tape.resize(input_len);
-    for (size_t i = 0; i < input_len; ++i) {
-      tapes[0].tape[i] = input[i];
+    if (input_len > 0) {
+        tapes[0].tape.resize(input_len);
+        for (size_t i = 0; i < input_len; ++i) {
+            tapes[0].tape[i] = input[i];
+        }
     }
   }
 };

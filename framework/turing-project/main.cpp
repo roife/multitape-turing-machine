@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
-#include <fcntl.h>
-#include <getopt.h>
 #include <iomanip>
 #include <iostream>
 #include <string>

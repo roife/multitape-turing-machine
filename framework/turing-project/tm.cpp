@@ -1,8 +1,9 @@
 #include "tm.h"
 #include "common.h"
+#include <deque>
+#include <cstring>
 #include <iomanip>
 #include <iostream>
-#include <sys/_types/_size_t.h>
 #include <utility>
 
 bool TMachineDef::Transition::match(State from,
@@ -212,14 +213,23 @@ void TMachine::run(bool verbose) {
   } while (step());
 
   std::string is_accepted = pass_final_state ? "ACCEPTED" : "UNACCEPTED";
+
   auto beg_end = get_tape_range(tapes[0]);
-  std::string result(tapes[0].begin() + beg_end.first,
-                     tapes[0].begin() + beg_end.second + 1);
+  std::deque<char> result(tapes[0].begin() + beg_end.first,
+                          tapes[0].begin() + beg_end.second + 1);
+  while (!result.empty() && result.back() == def.blank_sym) {
+    result.pop_back();
+  }
+  while (!result.empty() && result.front() == def.blank_sym) {
+    result.pop_front();
+  }
+  std::string result_str(result.begin(), result.end());
+
   if (verbose) {
     std::cout << is_accepted << std::endl
-              << "Result: " << result << std::endl
+              << "Result: " << result_str << std::endl
               << "==================== END ====================" << std::endl;
   } else {
-    std::cout << "(" << is_accepted << ") " << result << std::endl;
+    std::cout << "(" << is_accepted << ") " << result_str << std::endl;
   }
 }

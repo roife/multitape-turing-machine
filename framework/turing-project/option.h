@@ -1,5 +1,9 @@
 #pragma once
 
+#include <fcntl.h>
+#include <getopt.h>
+#include <iostream>
+
 struct Option {
   bool verbose = false;
   bool help = false;
