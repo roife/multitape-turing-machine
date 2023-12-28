@@ -1,4 +1,4 @@
-#Q = {st,cpA,cpB,prepare_multi,eatA,printC,reset,clr_right_reject,reject,reject2,reject3,reject4,reject5,reject6,reject7,reject8,reject9,reject10,reject11,reject12,reject13,reject14,halt}
+#Q = {st,cpA,cpB,prepare_multi,eatA,printC,reset,clr_right_reject,reject,reject2,reject3,reject4,reject5,reject6,reject7,reject8,reject9,reject10,reject11,reject12,reject13,reject14,halt,halt_rej}
 
 #S = {a,b}
 
@@ -13,16 +13,16 @@
 #N = 3
 
 st a__ a__ *** cpA
-st b__ ___ *** clr_right_reject
-st ___ ___ *** clr_right_reject
+st b__ ___ r** clr_right_reject
+st ___ ___ r** clr_right_reject
 
 ; copy A
 cpA a__ _a_ rr* cpA
 cpA b__ b__ *** cpB
-cpA ___ ___ *** clr_right_reject
+cpA ___ ___ r** clr_right_reject
 
 ; copy B
-cpB a__ ___ *** clr_right_reject
+cpB a__ ___ r** clr_right_reject
 cpB b__ __b r*r cpB
 cpB ___ ___ *ll prepare_multi
 
@@ -63,4 +63,4 @@ reject10 ___ n__ r** reject11
 reject11 ___ p__ r** reject12
 reject12 ___ u__ r** reject13
 reject13 ___ t__ r** reject14
-reject14 ___ ___ *** halt
+reject14 ___ ___ *** halt_rej

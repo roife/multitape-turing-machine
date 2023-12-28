@@ -153,15 +153,15 @@ void TMachine::print_instant_state(unsigned int step_cnt) {
     auto spaces = 0;
 
     std::cout << std::left << "Tape" << std::setw(tapes_num_str - 4) << i
-              << ":";
-    std::cout << std::right;
+              << ": ";
+    std::cout << std::left;
     for (auto j = beg_end.first; j <= beg_end.second; ++j) {
       auto true_pos = abs((int)j - (int)tapes[i].zero_pos);
-      auto spc = (true_pos > 0 ? std::to_string(true_pos - 1).length() : 1) + 1;
+      auto spc = std::to_string(true_pos).length() + 1;
       std::cout << std::setw(spc);
       std::cout << tapes[i][j];
 
-      if (j <= tapes[i].cur) {
+      if (j < tapes[i].cur) {
         spaces += spc;
       }
     }
@@ -169,7 +169,7 @@ void TMachine::print_instant_state(unsigned int step_cnt) {
 
     std::cout << std::left << "Head" << std::setw(tapes_num_str - 4) << i
               << ":";
-    std::cout << std::right << std::setw(spaces) << '^' << std::endl;
+    std::cout << std::right << std::setw(spaces + 2) << '^' << std::endl;
   }
 
   std::cout << "---------------------------------------------" << std::endl;

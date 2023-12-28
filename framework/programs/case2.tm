@@ -8,7 +8,7 @@
 
 #B = _
 
-#F = {halt_accept,halt_reject}
+#F = {halt_accept}
 
 #N = 2
 
